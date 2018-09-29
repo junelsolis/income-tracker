@@ -17,8 +17,36 @@ class LoginController extends Controller
       return view('login');
     }
 
-    public function login() {
+    public function login(Request $request) {
 
+      $request->validate([
+        'username' => 'required|email',
+        'password' => 'required|string',
+      ]);
+
+      $email = $request['username'];
+      $password = $request['password'];
+
+      // attempt to retrieve user from db
+      $user = DB::table('users')->where('email', $email)->first();
+
+      if (empty($user)) {
+        return back()->with('error', 'Invalid credentials.');
+      }
+
+      // check password
+      if (Hash::check($password, $user->password)) {
+        // if check passes, store session data
+        session([
+          'id' => $user->id
+        ]);
+
+        return redirect('/dashboard');
+
+      }
+      else {
+        return back()->with('error', 'Invalid credentials.');
+      }
 
 
     }
@@ -58,6 +86,7 @@ class LoginController extends Controller
 
       // hash the password
       $password = Hash::make($password);
+
       // store user in database
       DB::table('users')->insert([
         'firstname' => $firstname,
