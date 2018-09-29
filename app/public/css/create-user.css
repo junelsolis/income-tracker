@@ -1,0 +1,13 @@
+body > .grid-container {
+  min-height: 100vh;
+}
+
+#form-wrapper {
+  width: 500px;
+  max-width: 60vw;
+  margin: auto;
+}
+
+#form-wrapper > .grid-x {
+  text-align: left;
+}
