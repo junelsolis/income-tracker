@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'LoginController@showLogin');
+Route::get('/create-user', 'LoginController@showCreateUser');
