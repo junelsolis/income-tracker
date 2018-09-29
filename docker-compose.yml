@@ -31,3 +31,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1cVQdaC3SSM21Xl
       MYSQL_DATABASE: income_tracker
+    ports:
+      - "8081:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: income-tracker-pma
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=1cVQdaC3SSM21Xl
+      - PMA_HOST=income-tracker-db
+    ports:
+      - "9000:80"
