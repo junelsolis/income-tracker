@@ -11,9 +11,11 @@
     <div class='cell small-12'>
       <h1>Welcome to Income Tracker</h1>
       <form method='post' action='/create-user'>
+        {{ csrf_field() }}
           <div id='form-wrapper'>
-            <span class='label warning'>This is a warning label</span>
-
+            @if (session('error'))
+              <span class='label warning'>{{ session('error') }}</span>
+            @endif
             <div class="grid-x grid-padding-x">
               <div class='cell medium-6'>
                 <label>First Name</label>

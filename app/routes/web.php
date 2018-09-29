@@ -13,3 +13,4 @@
 
 Route::get('/', 'LoginController@showLogin');
 Route::get('/create-user', 'LoginController@showCreateUser');
+Route::post('/create-user', 'LoginController@createUser');
