@@ -16,3 +16,5 @@ Route::get('/create-user', 'LoginController@showCreateUser');
 Route::post('/create-user', 'LoginController@createUser');
 Route::post('/login', 'LoginController@login');
 Route::get('/dashboard', 'DashboardController@showDashboard');
+Route::get('/add-income', 'DashboardController@showAddIncome');
+Route::post('/add-income', 'DashboardController@addIncome');
