@@ -4,18 +4,24 @@ services:
 
 
   web:
-    image: php:7.2-apache
-    build:
-      context: ./
-      dockerfile: web.dockerfile
+    image: nginx
     container_name: income-tracker-web
     restart: always
     volumes:
-      - "./web/apache2:/etc/apache2"
       - "./app:/var/www/html"
+      - "./web/nginx:/etc/nginx/"
     ports:
       - "8080:80"
 
+
+  php:
+    image: php:7.2-fpm
+    container_name: income-tracker-php
+    build:
+      context: ./
+      dockerfile: php.dockerfile
+    volumes:
+      - "./app:/var/www/html"
 
   mysql:
     image: mysql:5.7
