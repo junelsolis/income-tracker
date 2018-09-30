@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - "./app:/var/www/html"
-      - "./web/nginx:/etc/nginx/"
+      - "./nginx/nginx:/etc/nginx/"
     ports:
       - "8080:80"
 
