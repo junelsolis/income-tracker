@@ -15,8 +15,13 @@
             <h1>${{ $monthIncome }}</h1>
             <h5>Last 30 Days</h5>
           </div>
-          <div class='cell medium-4'>
-            other income info here
+          <div id='other-income' class='cell medium-4'>
+            <div>
+              <h5>${{ $yearIncome }}</h5>
+              <p>
+                Total income this year
+              </p>
+            </div>
           </div>
         </div>
       </div>

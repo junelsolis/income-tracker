@@ -11,13 +11,16 @@ class DashboardController extends Controller
       if ($this->checkLoggedIn()) {} else { return redirect('/'); }
 
       $monthIncome = $this->getIncomeMonth();
-      $monthIncome = number_format($monthIncome);
+      $monthIncome = number_format($monthIncome,2);
 
+      $yearIncome = $this->getIncomeYear();
+      $yearIncome = number_format($yearIncome,2);
 
       $recentEntries = $this->getEntries(15);
 
       return view('dashboard')
         ->with('monthIncome', $monthIncome)
+        ->with('yearIncome', $yearIncome)
         ->with('recentEntries', $recentEntries);
     }
 
@@ -73,7 +76,7 @@ class DashboardController extends Controller
     private function getIncomeYear() {
       $now = strtotime('now');
       $year = strtotime('-365 days');
-      $year = date('Y-m-d', $year);
+      $year = date('Y', $year);
 
       $entries = DB::table('income')->where('date', '>=', $year)->get();
 
