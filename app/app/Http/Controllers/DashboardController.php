@@ -10,8 +10,15 @@ class DashboardController extends Controller
     public function showDashboard() {
       if ($this->checkLoggedIn()) {} else { return redirect('/'); }
 
+      $monthIncome = $this->getIncomeMonth();
+      $monthIncome = number_format($monthIncome);
 
-      return view('dashboard');
+
+      $recentEntries = $this->getEntries(15);
+
+      return view('dashboard')
+        ->with('monthIncome', $monthIncome)
+        ->with('recentEntries', $recentEntries);
     }
 
     public function showAddIncome() {
@@ -51,6 +58,43 @@ class DashboardController extends Controller
 
 
 
+    private function getIncomeMonth() {
+      $now = strtotime('now');
+      $month = strtotime('-30 days');
+      $month = date('Y-m-d', $month);
+
+      $entries = DB::table('income')->where('date', '>=', $month)->get();
+
+      $total = $entries->sum('amount');
+
+      return $total;
+    }
+
+    private function getIncomeYear() {
+      $now = strtotime('now');
+      $year = strtotime('-365 days');
+      $year = date('Y-m-d', $year);
+
+      $entries = DB::table('income')->where('date', '>=', $year)->get();
+
+      $total = $entries->sum('amount');
+
+      return $total;
+    }
+
+    private function getEntries($limit = NULL) {
+
+      if (isset($limit)) {
+        $entries = DB::table('income')->orderBy('created_at', 'desc')->limit($limit)->get();
+
+      }
+
+      else {
+        $entries = DB::table('income')->orderBy('created_at', 'dec')->get();
+      }
+
+      return $entries;
+    }
 
     private function checkLoggedIn() {
       if (session('id')) {

@@ -10,7 +10,15 @@
   <div class='grid-container'>
     <div id='main' class="grid-x align-middle">
       <div class='cell small-12'>
-        <h1>$1,290</h1>
+        <div class='grid-x grid-padding-x'>
+          <div id='income' class='cell medium-8 text-center'>
+            <h1>${{ $monthIncome }}</h1>
+            <h5>Last 30 Days</h5>
+          </div>
+          <div class='cell medium-4'>
+            other income info here
+          </div>
+        </div>
       </div>
     </div>
     <div id='button-wrapper'>
@@ -27,9 +35,19 @@
           </tr>
         </thead>
         <tbody>
-          
+          @if ($recentEntries)
+            @foreach ($recentEntries as $entry)
+            <tr>
+              <td>{{ $entry->date }}</td>
+              <td>{{ $entry->source }}</td>
+              <td>{{ $entry->description }}</td>
+              <td style='text-align:right;'>${{ $entry->amount }}</td>
+            </tr>
+            @endforeach
+          @endif
         </tbody>
       </table>
+      <a href=''>More...</a>
     </div>
   </div>
 </body>
