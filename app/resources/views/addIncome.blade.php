@@ -37,7 +37,7 @@
               </div>
               <div class='cell medium-6 small-12'>
                 <label>Amount</label>
-                <input type='number' name='amount' placeholder='$' required />
+                <input type='number' name='amount' placeholder='$' step='.01' required />
 
                 <button class='button expanded' type='submit'>Submit</button>
               </div>
